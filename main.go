@@ -3,19 +3,17 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"io/ioutil"
+	"github.com/fouralarmfire/grootsay/ascii"
 	"os"
-	"path"
 	"strings"
 )
 
 func main() {
 	fmt.Print("\n")
 	if (processStdin() || processArgs()) != true {
-		bubble, _ := ioutil.ReadFile(path.Join("ascii/i_am_groot"))
-		fmt.Print(string(bubble))
+		ascii.SayIAmGroot()
 	}
-	createGroot()
+	ascii.CreateGroot()
 }
 
 func processStdin() bool {
@@ -38,9 +36,4 @@ func processArgs() bool {
 		return true
 	}
 	return false
-}
-
-func createGroot() {
-	groot, _ := ioutil.ReadFile("ascii/minigroot")
-	fmt.Print(string(groot))
 }
