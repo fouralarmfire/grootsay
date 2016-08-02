@@ -10,7 +10,7 @@ import (
 
 func main() {
 	fmt.Print("\n")
-	if (processStdin() || processArgs()) != true {
+	if !(processStdin() || processArgs()) {
 		ascii.SayIAmGroot()
 	}
 	ascii.CreateGroot()
@@ -24,9 +24,8 @@ func processStdin() bool {
 			fmt.Println(stdinScanner.Text())
 		}
 		return true
-	} else {
-		return false
 	}
+	return false
 }
 
 func processArgs() bool {
