@@ -1,41 +1,70 @@
 package ascii
 
 import (
-	"fmt"
 	"github.com/fatih/color"
 )
 
 func CreateGroot() {
-	fmt.Println(color.MagentaString("        ___       ___"))
-	fmt.Println(color.RedString("            \\,,,,/"))
-	fmt.Println(color.RedString("                 \\           ,=      Z8ZO"))
-	fmt.Println(color.RedString("                  \\          7=  D  77$7$Z:  OZZ"))
-	fmt.Println(color.RedString("                     O8      Z    $?$ D88Z, Z$Z,"))
-	fmt.Println(color.CyanString("                    8D$     $+     ZO  IID$?7$ND,"))
-	fmt.Println(color.CyanString("                     +OI=  ?$I?   78?~7IIMO?I8Z"))
-	fmt.Println(color.CyanString("                       ZO87II$??O$7I???I???IIO"))
-	fmt.Println(color.CyanString("                        O$77I$??I7II$I?I?O?II"))
-	fmt.Println(color.CyanString("                         Z$$7O7$??????I7$III7"))
-	fmt.Println(color.MagentaString("                         $7ZMMNM$$???$MMMNZ$7"))
-	fmt.Println(color.MagentaString("                         ZZMMMMMM7I??MMMMMM7$"))
-	fmt.Println(color.MagentaString("                         $77NMNM$7???7MMNM&Z$"))
-	fmt.Println(color.MagentaString("                          77I??$7I$II?7$I?I7"))
-	fmt.Println(color.BlueString("                           ~$7$III87?II77$,"))
-	fmt.Println(color.BlueString("                                 `NDO'        8"))
-	fmt.Println(color.BlueString("                               OO$ZZZ78I    $ZO"))
-	fmt.Println(color.BlueString("                            8IZO8$7?7O?IIOZOO"))
-	fmt.Println(color.GreenString("                          $O$    .II?.  'O"))
-	fmt.Println(color.GreenString("                         $'       ZID"))
-	fmt.Println(color.GreenString("                                 ,7Z$,"))
-	fmt.Println(color.GreenString("                            +8NMO7ZO77DZI:"))
-	fmt.Println(color.YellowString("                           ++?$8OOO8N8DMN7+"))
-	fmt.Println(color.YellowString("                           ?+++=~~====+=++?"))
-	fmt.Println(color.YellowString("                           ??++=~~=++++++??"))
-	fmt.Println(color.YellowString("                           ???+=~~=++++++??"))
+	printMagenta("        ___       ___")
+	printMagenta("            \\,,,,/")
+	printRed("                 \\           ,=      Z8ZO")
+	printRed("                  \\          7=  D  77$7$Z:  OZZ")
+	printRed("                     O8      Z    $?$ D88Z, Z$Z,")
+	printCyan("                    8D$     $+     ZO  IID$?7$ND,")
+	printCyan("                     +OI=  ?$I?   78?~7IIMO?I8Z")
+	printCyan("                       ZO87II$??O$7I???I???IIO")
+	printBlue("                        O$77I$??I7II$I?I?O?II")
+	printBlue("                         Z$$7O7$??????I7$III7")
+	printMagenta("                         $7ZMMNM$$???$MMMNZ$7")
+	printMagenta("                         ZZMMMMMM7I??MMMMMM7$")
+	printMagenta("                         $77NMNM$7???7MMNM&Z$")
+	printBlue("                          77I??$7I$II?7$I?I7")
+	printBlue("                           ~$7$III87?II77$,")
+	printGreen("                                 `NDO'        8")
+	printGreen("                               OO$ZZZ78I    $ZO")
+	printGreen("                            8IZO8$7?7O?IIOZOO")
+	printGreen("                          $O$    .II?.  'O")
+	printGreen("                         $'       ZID")
+	printGreen("                                 ,7Z$,")
+	printYellow("                            +8NMO7ZO77DZI:")
+	printYellow("                           ++?$8OOO8N8DMN7+")
+	printYellow("                           ?+++=~~====+=++?")
+	printYellow("                           ??++=~~=++++++??")
+	printYellow("                           ???+=~~=++++++??")
 }
 
 func SayIAmGroot() {
-	fmt.Println(color.GreenString("        _____________"))
-	fmt.Println(color.YellowString("/```                     ```\\"))
-	fmt.Println(color.CyanString("\\___      I AM GROOT     ___/"))
+	printMagenta("        _____________")
+	printYellow("/```                     ```\\")
+	printCyan("\\___      I AM GROOT     ___/")
+}
+
+func printRed(str string) {
+	red := color.New(color.FgRed).PrintlnFunc()
+	red(str)
+}
+
+func printGreen(str string) {
+	green := color.New(color.FgGreen).PrintlnFunc()
+	green(str)
+}
+
+func printYellow(str string) {
+	yellow := color.New(color.FgYellow).PrintlnFunc()
+	yellow(str)
+}
+
+func printBlue(str string) {
+	blue := color.New(color.FgBlue).PrintlnFunc()
+	blue(str)
+}
+
+func printCyan(str string) {
+	cyan := color.New(color.FgCyan).PrintlnFunc()
+	cyan(str)
+}
+
+func printMagenta(str string) {
+	magenta := color.New(color.FgMagenta).PrintlnFunc()
+	magenta(str)
 }
