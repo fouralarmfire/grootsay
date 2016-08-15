@@ -5,8 +5,6 @@ import (
 )
 
 func CreateGroot() {
-	printMagenta("        ___       ___")
-	printMagenta("            \\,,,,/")
 	printRed("                 \\           ,=      Z8ZO")
 	printRed("                  \\          7=  D  77$7$Z:  OZZ")
 	printRed("                     O8      Z    $?$ D88Z, Z$Z,")
@@ -34,9 +32,9 @@ func CreateGroot() {
 }
 
 func SayIAmGroot() {
-	printMagenta("        _____________")
-	printYellow("/```                     ```\\")
-	printCyan("\\___      I AM GROOT     ___/")
+	printMagenta("        ____________")
+	printCyan("      <  I AM GROOT  >")
+	printMagenta("        ------------")
 }
 
 func printRed(str string) {
