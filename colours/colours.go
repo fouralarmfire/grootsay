@@ -33,13 +33,3 @@ func PrintMagenta(str string) {
 	magenta := color.New(color.FgMagenta).PrintlnFunc()
 	magenta(str)
 }
-
-func PrintFCyan(str string, thing []string) {
-	cyan := color.New(color.FgCyan).PrintfFunc()
-	cyan(str, thing)
-}
-
-func PrintFMagenta(str string, thing []string) {
-	magenta := color.New(color.FgMagenta).PrintfFunc()
-	magenta(str, thing)
-}
