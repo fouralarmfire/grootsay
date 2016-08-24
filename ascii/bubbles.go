@@ -1,9 +1,7 @@
 package ascii
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strings"
 
 	"github.com/fatih/color"
@@ -11,11 +9,10 @@ import (
 
 const maxLineLength = 80
 
-func StdinMultiLineBubble() {
+func StdinMultiLineBubble(lines []string) {
 	var del0, del1 string
-	stdinScanner := bufio.NewScanner(os.Stdin)
 	fmt.Printf(color.MagentaString("   %s\n", topLine(maxLineLength)))
-	for i := 0; stdinScanner.Scan(); i++ {
+	for i, line := range lines {
 		if i == 0 {
 			del0 = delimeters("first", 0)
 			del1 = delimeters("first", 1)
@@ -23,7 +20,7 @@ func StdinMultiLineBubble() {
 			del0 = delimeters("middle", 0)
 			del1 = delimeters("middle", 1)
 		}
-		fmt.Printf(color.CyanString(" %s  %s %s\n", del0, pad(stdinScanner.Text()), del1))
+		fmt.Printf(color.CyanString(" %s  %s %s\n", del0, pad(line), del1))
 	}
 	fmt.Printf(color.MagentaString(" %s%s%s\n", delimeters("last", 0), bottomLine(maxLineLength), delimeters("last", 1)))
 }
