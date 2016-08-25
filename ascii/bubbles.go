@@ -9,8 +9,6 @@ import (
 	"github.com/fatih/color"
 )
 
-const maxLineLength = 80
-
 type winsize struct {
 	Row    uint16
 	Col    uint16
@@ -19,8 +17,9 @@ type winsize struct {
 }
 
 func StdinMultiLineBubble(lines []string) {
+	lineLength := getMaxLineLength(lines)
 	var del0, del1 string
-	fmt.Printf(color.MagentaString("   %s\n", topLine(maxLineLength)))
+	fmt.Printf(color.MagentaString("   %s\n", topLine(lineLength)))
 	for i, line := range lines {
 		if i == 0 {
 			del0 = delimeters("first", 0)
@@ -32,9 +31,9 @@ func StdinMultiLineBubble(lines []string) {
 			del0 = delimeters("middle", 0)
 			del1 = delimeters("middle", 1)
 		}
-		fmt.Printf(color.CyanString(" %s  %s %s\n", del0, pad(strings.TrimSpace(line)), del1))
+		fmt.Printf(color.CyanString(" %s  %s %s\n", del0, pad(strings.TrimSpace(line), lineLength), del1))
 	}
-	fmt.Printf(color.MagentaString("   %s\n", bottomLine(maxLineLength)))
+	fmt.Printf(color.MagentaString("   %s\n", bottomLine(lineLength)))
 }
 
 func ArgsSpeak(args []string) {
@@ -77,7 +76,17 @@ func getWidth() uint {
 	return uint(ws.Col)
 }
 
-func pad(text string) string {
+func getMaxLineLength(lines []string) int {
+	length := 0
+	for _, line := range lines {
+		if len(line) > length {
+			length = len(line)
+		}
+	}
+	return length
+}
+
+func pad(text string, maxLineLength int) string {
 	padding := strings.Repeat(" ", maxLineLength-len(text))
 	return text + padding
 }
