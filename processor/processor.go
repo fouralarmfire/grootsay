@@ -15,7 +15,11 @@ func ProcessStdin() bool {
 			ascii.DeadGroot()
 			return true
 		}
-		ascii.StdinMultiLineBubble(lines)
+		if len(lines) == 1 {
+			ascii.OneLineBubble(lines[0], len(lines[0]))
+		} else {
+			ascii.StdinMultiLineBubble(lines)
+		}
 		return true
 	}
 	return false

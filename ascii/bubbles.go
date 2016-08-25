@@ -32,11 +32,11 @@ func ArgsSpeak(args []string) {
 	text := strings.Join(args, " ")
 	lineLength := len(text)
 	if lineLength <= maxLineLength {
-		oneLineBubble(text, lineLength)
+		OneLineBubble(text, lineLength)
 	}
 }
 
-func oneLineBubble(text string, lineLength int) {
+func OneLineBubble(text string, lineLength int) {
 	fmt.Printf(color.MagentaString("         %s\n", topLine(lineLength)))
 	fmt.Printf(color.CyanString("       %s  %s  %s\n", delimeters("only", 0), text, delimeters("only", 1)))
 	fmt.Printf(color.MagentaString("         %s\n", bottomLine(lineLength)))
