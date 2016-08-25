@@ -23,7 +23,7 @@ func StdinMultiLineBubble(lines []string) {
 			del0 = delimeters("middle", 0)
 			del1 = delimeters("middle", 1)
 		}
-		fmt.Printf(color.CyanString(" %s  %s %s\n", del0, pad(line), del1))
+		fmt.Printf(color.CyanString(" %s  %s %s\n", del0, pad(strings.TrimSpace(line)), del1))
 	}
 	fmt.Printf(color.MagentaString("   %s\n", bottomLine(maxLineLength)))
 }
