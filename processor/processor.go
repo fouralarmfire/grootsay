@@ -11,10 +11,6 @@ func ProcessStdin() bool {
 	stat, _ := os.Stdin.Stat()
 	if (stat.Mode() & os.ModeCharDevice) == 0 {
 		lines := getStdin()
-		if testOutputReceived(lines) {
-			ascii.DeadGroot()
-			return true
-		}
 		if len(lines) == 1 {
 			ascii.OneLineBubble(lines[0], len(lines[0]))
 		} else {
@@ -41,13 +37,4 @@ func getStdin() []string {
 		lines = append(lines, scanner.Text())
 	}
 	return lines
-}
-
-func testOutputReceived(lines []string) bool {
-	for _, line := range lines {
-		if line == "Test Suite Failed" {
-			return true
-		}
-	}
-	return false
 }
