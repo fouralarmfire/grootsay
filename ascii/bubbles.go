@@ -3,11 +3,20 @@ package ascii
 import (
 	"fmt"
 	"strings"
+	"syscall"
+	"unsafe"
 
 	"github.com/fatih/color"
 )
 
 const maxLineLength = 80
+
+type winsize struct {
+	Row    uint16
+	Col    uint16
+	Xpixel uint16
+	Ypixel uint16
+}
 
 func StdinMultiLineBubble(lines []string) {
 	var del0, del1 string
@@ -31,8 +40,11 @@ func StdinMultiLineBubble(lines []string) {
 func ArgsSpeak(args []string) {
 	text := strings.Join(args, " ")
 	lineLength := len(text)
-	if lineLength <= maxLineLength {
+	screenWidth := getWidth()
+	if lineLength <= int(screenWidth) {
 		OneLineBubble(text, lineLength)
+	} else {
+		fmt.Println("can't handle this right now")
 	}
 }
 
@@ -50,6 +62,19 @@ func delimeters(loc string, index int) string {
 		"only":   []string{"<", ">"},
 	}
 	return dels[loc][index]
+}
+
+func getWidth() uint {
+	ws := &winsize{}
+	retCode, _, errno := syscall.Syscall(syscall.SYS_IOCTL,
+		uintptr(syscall.Stdin),
+		uintptr(syscall.TIOCGWINSZ),
+		uintptr(unsafe.Pointer(ws)))
+
+	if int(retCode) == -1 {
+		panic(errno)
+	}
+	return uint(ws.Col)
 }
 
 func pad(text string) string {
