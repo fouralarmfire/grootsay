@@ -16,13 +16,16 @@ func StdinMultiLineBubble(lines []string) {
 		if i == 0 {
 			del0 = delimeters("first", 0)
 			del1 = delimeters("first", 1)
+		} else if i == len(lines)-1 {
+			del0 = delimeters("last", 0)
+			del1 = delimeters("last", 1)
 		} else {
 			del0 = delimeters("middle", 0)
 			del1 = delimeters("middle", 1)
 		}
 		fmt.Printf(color.CyanString(" %s  %s %s\n", del0, pad(line), del1))
 	}
-	fmt.Printf(color.MagentaString(" %s%s%s\n", delimeters("last", 0), bottomLine(maxLineLength), delimeters("last", 1)))
+	fmt.Printf(color.MagentaString("   %s\n", bottomLine(maxLineLength)))
 }
 
 func ArgsSpeak(args []string) {
