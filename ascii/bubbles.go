@@ -27,15 +27,6 @@ func StdinMultiLineBubble(lines []string) {
 	fmt.Printf(color.MagentaString("   %s\n", bottomLine(lineLength)))
 }
 
-func ArgsSpeak(args []string) {
-	text := strings.Join(args, " ")
-	lineLength := len(text)
-	screenWidth := getWidth()
-	if lineLength <= int(screenWidth) {
-		OneLineBubble(text, lineLength)
-	}
-}
-
 func OneLineBubble(text string, lineLength int) {
 	fmt.Printf(color.MagentaString("         %s\n", topLine(lineLength)))
 	fmt.Printf(color.CyanString("       %s  %s  %s\n", delimeters("only", 0), text, delimeters("only", 1)))

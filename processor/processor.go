@@ -3,8 +3,10 @@ package processor
 import (
 	"bufio"
 	"os"
+	"strings"
 
 	"github.com/fouralarmfire/grootsay/ascii"
+	"github.com/fouralarmfire/grootsay/screen"
 )
 
 func ProcessStdin() bool {
@@ -23,8 +25,10 @@ func ProcessStdin() bool {
 
 func ProcessArgs() bool {
 	args := os.Args[1:]
-	if len(args) > 0 {
-		ascii.ArgsSpeak(args)
+	sw := screen.GetWidth()
+	text := strings.Join(args, " ")
+	if len(args) > 0 && len(text) < int(sw)-13 {
+		ascii.OneLineBubble(text, len(text))
 		return true
 	}
 	return false
