@@ -4,41 +4,44 @@ import (
 	"bufio"
 	"os"
 	"strings"
-
-	"github.com/fouralarmfire/grootsay/ascii"
-	"github.com/fouralarmfire/grootsay/screen"
 )
 
-func ProcessStdin() bool {
+type TextProcessor struct {
+	screenWidth int
+	lines       []string
+}
+
+func NewTextProcessor(sw int) *TextProcessor {
+	return &TextProcessor{
+		screenWidth: sw,
+	}
+}
+
+func (p *TextProcessor) ReceivedInput() (bool, []string) {
+	if p.receivedStdin() || p.receivedArgs() {
+		return true, p.lines
+	}
+	return false, []string{}
+}
+
+func (p *TextProcessor) receivedStdin() bool {
 	stat, _ := os.Stdin.Stat()
 	if (stat.Mode() & os.ModeCharDevice) == 0 {
-		lines := getStdin()
-		if len(lines) == 1 {
-			ascii.OneLineBubble(lines[0], len(lines[0]))
-		} else {
-			ascii.StdinMultiLineBubble(lines)
+		scanner := bufio.NewScanner(os.Stdin)
+		for scanner.Scan() {
+			p.lines = append(p.lines, scanner.Text())
 		}
 		return true
 	}
 	return false
 }
 
-func ProcessArgs() bool {
+func (p *TextProcessor) receivedArgs() bool {
 	args := os.Args[1:]
-	sw := screen.GetWidth()
 	text := strings.Join(args, " ")
-	if len(args) > 0 && len(text) < int(sw)-13 {
-		ascii.OneLineBubble(text, len(text))
+	if len(args) > 0 && len(text) < int(p.screenWidth)-13 {
+		p.lines = append(p.lines, text)
 		return true
 	}
 	return false
-}
-
-func getStdin() []string {
-	var lines []string
-	scanner := bufio.NewScanner(os.Stdin)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines
 }

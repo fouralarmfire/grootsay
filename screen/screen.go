@@ -1,26 +1,28 @@
 package screen
 
 import (
-	"syscall"
-	"unsafe"
+	"fmt"
+
+	"golang.org/x/crypto/ssh/terminal"
 )
 
-type winsize struct {
-	Row    uint16
-	Col    uint16
-	Xpixel uint16
-	Ypixel uint16
+type Screen struct {
+	width  int
+	height int
 }
 
-func GetWidth() uint {
-	ws := &winsize{}
-	retCode, _, errno := syscall.Syscall(syscall.SYS_IOCTL,
-		uintptr(syscall.Stdin),
-		uintptr(syscall.TIOCGWINSZ),
-		uintptr(unsafe.Pointer(ws)))
-
-	if int(retCode) == -1 {
-		panic(errno)
+func NewScreen() *Screen {
+	w, h, err := terminal.GetSize(0)
+	if err != nil {
+		fmt.Errorf("failed to get terminal size: %s", err)
+		return &Screen{}
 	}
-	return uint(ws.Col)
+	return &Screen{
+		width:  w,
+		height: h,
+	}
+}
+
+func (s *Screen) Width() int {
+	return s.width
 }

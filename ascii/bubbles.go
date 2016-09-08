@@ -7,33 +7,51 @@ import (
 	"github.com/fatih/color"
 )
 
-func StdinMultiLineBubble(lines []string) {
-	lineLength := getMaxLineLength(lines)
-	var del0, del1 string
-	fmt.Printf(color.MagentaString("   %s\n", topLine(lineLength)))
-	for i, line := range lines {
-		if i == 0 {
-			del0 = delimeters("first", 0)
-			del1 = delimeters("first", 1)
-		} else if i == len(lines)-1 {
-			del0 = delimeters("last", 0)
-			del1 = delimeters("last", 1)
-		} else {
-			del0 = delimeters("middle", 0)
-			del1 = delimeters("middle", 1)
-		}
-		fmt.Printf(color.CyanString(" %s  %s %s\n", del0, pad(strings.TrimSpace(line), lineLength), del1))
+type Bubble struct {
+	lines  []string
+	maxLen int
+}
+
+func NewBubble() *Bubble {
+	return &Bubble{}
+}
+
+func (b *Bubble) CustomMessage(text []string) {
+	b.lines = text
+	b.getMaxLineLength()
+	if len(b.lines) == 1 {
+		b.oneLineBubble()
+	} else {
+		b.multiLineBubble()
 	}
-	fmt.Printf(color.MagentaString("   %s\n", bottomLine(lineLength)))
 }
 
-func OneLineBubble(text string, lineLength int) {
-	fmt.Printf(color.MagentaString("         %s\n", topLine(lineLength)))
-	fmt.Printf(color.CyanString("       %s  %s  %s\n", delimeters("only", 0), text, delimeters("only", 1)))
-	fmt.Printf(color.MagentaString("         %s\n", bottomLine(lineLength)))
+func (b *Bubble) multiLineBubble() {
+	var del0, del1 string
+	fmt.Printf(color.MagentaString("   %s\n", b.topLine()))
+	for i, line := range b.lines {
+		if i == 0 {
+			del0 = b.delimeters("first", 0)
+			del1 = b.delimeters("first", 1)
+		} else if i == len(b.lines)-1 {
+			del0 = b.delimeters("last", 0)
+			del1 = b.delimeters("last", 1)
+		} else {
+			del0 = b.delimeters("middle", 0)
+			del1 = b.delimeters("middle", 1)
+		}
+		fmt.Printf(color.CyanString(" %s  %s %s\n", del0, b.pad(strings.TrimSpace(line)), del1))
+	}
+	fmt.Printf(color.MagentaString("   %s\n", b.bottomLine()))
 }
 
-func delimeters(loc string, index int) string {
+func (b *Bubble) oneLineBubble() {
+	fmt.Printf(color.MagentaString("         %s\n", b.topLine()))
+	fmt.Printf(color.CyanString("       %s  %s  %s\n", b.delimeters("only", 0), b.lines[0], b.delimeters("only", 1)))
+	fmt.Printf(color.MagentaString("         %s\n", b.bottomLine()))
+}
+
+func (b *Bubble) delimeters(loc string, index int) string {
 	var dels = map[string][]string{
 		"first":  []string{"/", "\\"},
 		"middle": []string{"|", "|"},
@@ -43,25 +61,25 @@ func delimeters(loc string, index int) string {
 	return dels[loc][index]
 }
 
-func getMaxLineLength(lines []string) int {
-	length := 0
-	for _, line := range lines {
+func (b *Bubble) getMaxLineLength() {
+	var length = 0
+	for _, line := range b.lines {
 		if len(line) > length {
 			length = len(line)
 		}
 	}
-	return length
+	b.maxLen = length
 }
 
-func pad(text string, maxLineLength int) string {
-	padding := strings.Repeat(" ", maxLineLength-len(text))
+func (b *Bubble) pad(text string) string {
+	var padding = strings.Repeat(" ", b.maxLen-len(text))
 	return text + padding
 }
 
-func topLine(length int) string {
-	return strings.Repeat("_", length+2)
+func (b *Bubble) topLine() string {
+	return strings.Repeat("_", b.maxLen+2)
 }
 
-func bottomLine(length int) string {
-	return strings.Repeat("-", length+2)
+func (b *Bubble) bottomLine() string {
+	return strings.Repeat("-", b.maxLen+2)
 }

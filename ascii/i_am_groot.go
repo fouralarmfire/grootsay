@@ -4,7 +4,13 @@ import (
 	"github.com/fouralarmfire/grootsay/colours"
 )
 
-func CreateGroot() {
+type Image struct{}
+
+func NewImage() *Image {
+	return &Image{}
+}
+
+func (i *Image) CreateAscii() {
 	colours.PrintRed("                 \\           ,=      Z8ZO")
 	colours.PrintRed("                  \\          7=  D  77$7$Z:  OZZ")
 	colours.PrintRed("                     O8      Z    $?$ D88Z, Z$Z,")
@@ -31,7 +37,7 @@ func CreateGroot() {
 	colours.PrintYellow("                           ???+=~~=++++++??")
 }
 
-func SayIAmGroot() {
+func (i *Image) DefaultMessage() {
 	colours.PrintMagenta("        ____________")
 	colours.PrintCyan("      <  I AM GROOT  >")
 	colours.PrintMagenta("        ------------")
