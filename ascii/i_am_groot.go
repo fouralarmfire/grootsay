@@ -36,7 +36,3 @@ func SayIAmGroot() {
 	colours.PrintCyan("      <  I AM GROOT  >")
 	colours.PrintMagenta("        ------------")
 }
-
-func DeadGroot() {
-	colours.PrintRed("DEAD GROOT")
-}
