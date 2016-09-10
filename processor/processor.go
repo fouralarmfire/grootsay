@@ -18,7 +18,7 @@ func NewTextProcessor(sw int) *TextProcessor {
 }
 
 func (p *TextProcessor) ReceivedInput() (bool, []string) {
-	if p.receivedStdin() || p.receivedArgs() {
+	if (p.receivedStdin() || p.receivedArgs()) && p.checkLines() {
 		return true, p.lines
 	}
 	return false, []string{}
@@ -33,6 +33,7 @@ func (p *TextProcessor) receivedStdin() bool {
 		}
 		return true
 	}
+
 	return false
 }
 
@@ -44,4 +45,11 @@ func (p *TextProcessor) receivedArgs() bool {
 		return true
 	}
 	return false
+}
+
+func (p *TextProcessor) checkLines() bool {
+	if len(p.lines) == 0 {
+		return false
+	}
+	return true
 }
