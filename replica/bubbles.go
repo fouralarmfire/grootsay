@@ -1,4 +1,4 @@
-package ascii
+package replica
 
 import (
 	"fmt"
@@ -62,7 +62,7 @@ func (b *Bubble) delimeters(loc string, index int) string {
 }
 
 func (b *Bubble) getMaxLineLength() {
-	var length = 0
+	var length int
 	for _, line := range b.lines {
 		if len(line) > length {
 			length = len(line)

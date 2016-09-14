@@ -3,20 +3,20 @@ package main
 import (
 	"fmt"
 
-	"github.com/fouralarmfire/grootsay/ascii"
-	"github.com/fouralarmfire/grootsay/creator"
-	"github.com/fouralarmfire/grootsay/processor"
-	"github.com/fouralarmfire/grootsay/screen"
+	collectorpkg "github.com/fouralarmfire/grootsay/collector"
+	mainframepkg "github.com/fouralarmfire/grootsay/mainframe"
+	replicapkg "github.com/fouralarmfire/grootsay/replica"
+	screenpkg "github.com/fouralarmfire/grootsay/screen"
 )
 
 func main() {
-	screen := screen.NewScreen()
-	image := ascii.NewImage()
-	bubble := ascii.NewBubble()
-	processor := processor.NewTextProcessor(screen.Width())
-	grootsay := creator.NewGroot(processor, image, bubble)
+	screen := screenpkg.NewScreen()
+	replica := replicapkg.NewReplica()
+	bubble := replicapkg.NewBubble()
+	collector := collectorpkg.NewTextCollector(screen.Width())
+	groot := mainframepkg.NewMainframe(collector, replica, bubble)
 
 	fmt.Print("\n")
-	grootsay.Speak()
+	groot.Speak()
 	fmt.Print("\n")
 }

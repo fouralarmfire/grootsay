@@ -1,16 +1,16 @@
-package ascii
+package replica
 
 import (
 	"github.com/fouralarmfire/grootsay/colours"
 )
 
-type Image struct{}
+type Replica struct{}
 
-func NewImage() *Image {
-	return &Image{}
+func NewReplica() *Replica {
+	return &Replica{}
 }
 
-func (i *Image) CreateAscii() {
+func (i *Replica) Print() {
 	colours.PrintRed("                 \\           ,=      Z8ZO")
 	colours.PrintRed("                  \\          7=  D  77$7$Z:  OZZ")
 	colours.PrintRed("                     O8      Z    $?$ D88Z, Z$Z,")
@@ -37,7 +37,7 @@ func (i *Image) CreateAscii() {
 	colours.PrintYellow("                           ???+=~~=++++++??")
 }
 
-func (i *Image) DefaultMessage() {
+func (i *Replica) DefaultMessage() {
 	colours.PrintMagenta("        ____________")
 	colours.PrintCyan("      <  I AM GROOT  >")
 	colours.PrintMagenta("        ------------")
