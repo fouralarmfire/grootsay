@@ -17,6 +17,6 @@ func main() {
 	groot := mainframepkg.NewMainframe(collector, replica, bubble)
 
 	fmt.Print("\n")
-	groot.Speak()
+	groot.Say()
 	fmt.Print("\n")
 }

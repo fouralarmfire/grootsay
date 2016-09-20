@@ -27,7 +27,7 @@ func NewMainframe(c Collector, r Replica, b Bubble) *Mainframe {
 	}
 }
 
-func (m *Mainframe) Speak() {
+func (m *Mainframe) Say() {
 	rec, text := m.collector.ReceivedInput()
 	if rec {
 		m.bubble.CustomMessage(text)
