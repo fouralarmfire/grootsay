@@ -1,27 +1,31 @@
 package colours
 
 import (
+	"fmt"
+	"math/rand"
+	"time"
+
 	"github.com/fatih/color"
 )
 
-func PrintRed(str string) {
-	red := color.New(color.FgRed).PrintlnFunc()
-	red(str)
+func Randomize(str string, ind int) {
+	color.Set(randomColour(ind))
+	defer color.Unset()
+	fmt.Println(str)
 }
 
-func PrintGreen(str string) {
-	green := color.New(color.FgGreen).PrintlnFunc()
-	green(str)
-}
+func randomColour(ind int) color.Attribute {
+	var colours = []color.Attribute{
+		color.FgRed,
+		color.FgGreen,
+		color.FgYellow,
+		color.FgBlue,
+		color.FgMagenta,
+		color.FgCyan,
+	}
 
-func PrintYellow(str string) {
-	yellow := color.New(color.FgYellow).PrintlnFunc()
-	yellow(str)
-}
-
-func PrintBlue(str string) {
-	blue := color.New(color.FgBlue).PrintlnFunc()
-	blue(str)
+	rand.Seed(int64(ind-(-1)) * time.Now().Unix())
+	return colours[rand.Int()%len(colours)]
 }
 
 func PrintCyan(str string) {
