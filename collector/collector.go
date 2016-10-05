@@ -2,19 +2,19 @@ package collector
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strings"
+
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 type TextCollector struct {
-	screenWidth int
-	lines       []string
+	lines []string
 }
 
-func NewTextCollector(sw int) *TextCollector {
-	return &TextCollector{
-		screenWidth: sw,
-	}
+func NewTextCollector() *TextCollector {
+	return &TextCollector{}
 }
 
 func (c *TextCollector) ReceivedInput() (bool, []string) {
@@ -40,7 +40,7 @@ func (c *TextCollector) receivedStdin() bool {
 func (c *TextCollector) receivedArgs() bool {
 	args := os.Args[1:]
 	text := strings.Join(args, " ")
-	if len(args) > 0 && len(text) < int(c.screenWidth)-13 {
+	if len(args) > 0 && len(text) < int(c.screenWidth())-13 {
 		c.lines = append(c.lines, text)
 		return true
 	}
@@ -52,4 +52,13 @@ func (c *TextCollector) checkLines() bool {
 		return false
 	}
 	return true
+}
+
+func (c *TextCollector) screenWidth() int {
+	w, _, err := terminal.GetSize(0)
+	if err != nil {
+		fmt.Errorf("failed to get terminal size: %s", err)
+		return 0
+	}
+	return w
 }
