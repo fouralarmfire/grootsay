@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	bubblepkg "github.com/fouralarmfire/grootsay/bubbles"
 	collectorpkg "github.com/fouralarmfire/grootsay/collector"
 	mainframepkg "github.com/fouralarmfire/grootsay/mainframe"
 	replicapkg "github.com/fouralarmfire/grootsay/replica"
@@ -10,7 +11,7 @@ import (
 
 func main() {
 	replica := replicapkg.NewReplica()
-	bubble := replicapkg.NewBubble()
+	bubble := bubblepkg.NewBubble()
 	collector := collectorpkg.NewTextCollector()
 	groot := mainframepkg.NewMainframe(collector, replica, bubble)
 
