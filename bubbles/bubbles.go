@@ -8,12 +8,15 @@ import (
 )
 
 type Bubble struct {
-	lines  []string
-	maxLen int
+	lines          []string
+	defaultMessage string
+	maxLen         int
 }
 
-func NewBubble() *Bubble {
-	return &Bubble{}
+func NewBubble(dm string) *Bubble {
+	return &Bubble{
+		defaultMessage: dm,
+	}
 }
 
 func (b *Bubble) CustomMessage(text []string) {
@@ -24,6 +27,12 @@ func (b *Bubble) CustomMessage(text []string) {
 	} else {
 		b.multiLineBubble()
 	}
+}
+
+func (b *Bubble) DefaultMessage() {
+	b.lines = append(b.lines, b.defaultMessage)
+	b.getMaxLineLength()
+	b.oneLineBubble()
 }
 
 func (b *Bubble) multiLineBubble() {

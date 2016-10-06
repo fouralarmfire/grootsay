@@ -9,21 +9,13 @@ import (
 )
 
 type Replica struct {
-	asciiArt       []string
-	defaultMessage string
+	asciiArt []string
 }
 
-func NewReplica(aa []string, dm string) *Replica {
+func NewReplica(aa []string) *Replica {
 	return &Replica{
-		asciiArt:       aa,
-		defaultMessage: dm,
+		asciiArt: aa,
 	}
-}
-
-func (i *Replica) DefaultMessage() {
-	color.Magenta("        ____________")
-	color.Cyan("      <  %s  >", i.defaultMessage)
-	color.Magenta("        ------------")
 }
 
 func (i *Replica) Print() {

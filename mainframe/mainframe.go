@@ -14,14 +14,14 @@ type Replica interface {
 type Mainframe struct {
 	bubble    *bubbles.Bubble
 	collector *collector.TextCollector
-	replica   Replica
+	replica   *replica.Replica
 }
 
 func NewMainframe(asciiArt []string, defaultMessage string) *Mainframe {
 	return &Mainframe{
-		bubble:    bubbles.NewBubble(),
+		bubble:    bubbles.NewBubble(defaultMessage),
 		collector: collector.NewTextCollector(),
-		replica:   replica.NewReplica(asciiArt, defaultMessage),
+		replica:   replica.NewReplica(asciiArt),
 	}
 }
 
@@ -30,7 +30,7 @@ func (m *Mainframe) Say() {
 	if ok {
 		m.bubble.CustomMessage(text)
 	} else {
-		m.replica.DefaultMessage()
+		m.bubble.DefaultMessage()
 	}
 	m.replica.Print()
 }
