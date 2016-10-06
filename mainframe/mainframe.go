@@ -25,8 +25,8 @@ func NewMainframe(r Replica) *Mainframe {
 }
 
 func (m *Mainframe) Say() {
-	rec, text := m.collector.ReceivedInput()
-	if rec {
+	ok, text := m.collector.ReceivedInput()
+	if ok {
 		m.bubble.CustomMessage(text)
 	} else {
 		m.replica.DefaultMessage()
