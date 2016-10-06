@@ -3,6 +3,7 @@ package mainframe
 import (
 	"github.com/fouralarmfire/grootsay/bubbles"
 	"github.com/fouralarmfire/grootsay/collector"
+	"github.com/fouralarmfire/grootsay/replica"
 )
 
 type Replica interface {
@@ -16,11 +17,11 @@ type Mainframe struct {
 	replica   Replica
 }
 
-func NewMainframe(r Replica) *Mainframe {
+func NewMainframe(asciiArt []string, defaultMessage string) *Mainframe {
 	return &Mainframe{
 		bubble:    bubbles.NewBubble(),
 		collector: collector.NewTextCollector(),
-		replica:   r,
+		replica:   replica.NewReplica(asciiArt, defaultMessage),
 	}
 }
 

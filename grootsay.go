@@ -1,28 +1,11 @@
-package replica
+package main
 
-import (
-	"fmt"
-	"math/rand"
-	"time"
-
-	"github.com/fatih/color"
-)
-
-type Replica struct {
+func defaultMessage() string {
+	return "I AM GROOT"
 }
 
-func NewReplica() *Replica {
-	return &Replica{}
-}
-
-func (i *Replica) DefaultMessage() {
-	color.Magenta("        ____________")
-	color.Cyan("      <  I AM GROOT  >")
-	color.Magenta("        ------------")
-}
-
-func (i *Replica) Print() {
-	lines := []string{
+func grootAscii() []string {
+	return []string{
 		"                 \\           ,=      Z8ZO",
 		"                  \\          7=  D  77$7$Z:  OZZ",
 		"                     O8      Z    $?$ D88Z, Z$Z,",
@@ -48,28 +31,4 @@ func (i *Replica) Print() {
 		"                           ??++=~~=++++++??",
 		"                           ???+=~~=++++++??",
 	}
-
-	for i, line := range lines {
-		randomize(line, i)
-	}
-}
-
-func randomize(str string, ind int) {
-	color.Set(randomColour(ind))
-	defer color.Unset()
-	fmt.Println(str)
-}
-
-func randomColour(ind int) color.Attribute {
-	var colours = []color.Attribute{
-		color.FgRed,
-		color.FgGreen,
-		color.FgYellow,
-		color.FgBlue,
-		color.FgMagenta,
-		color.FgCyan,
-	}
-
-	rand.Seed(int64(ind-(-1)) * time.Now().Unix())
-	return colours[rand.Int()%len(colours)]
 }

@@ -4,12 +4,10 @@ import (
 	"fmt"
 
 	mainframepkg "github.com/fouralarmfire/grootsay/mainframe"
-	replicapkg "github.com/fouralarmfire/grootsay/replica"
 )
 
 func main() {
-	replica := replicapkg.NewReplica()
-	groot := mainframepkg.NewMainframe(replica)
+	groot := mainframepkg.NewMainframe(grootAscii(), defaultMessage())
 
 	fmt.Print("\n")
 	groot.Say()
