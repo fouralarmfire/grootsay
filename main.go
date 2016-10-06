@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	mainframepkg "github.com/fouralarmfire/grootsay/mainframe"
+	mainframepkg "github.com/fouralarmfire/xsay/mainframe"
 )
 
 func main() {
