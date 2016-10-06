@@ -1,28 +1,25 @@
 package mainframe
 
-type Collector interface {
-	ReceivedInput() (bool, []string)
-}
+import (
+	"github.com/fouralarmfire/grootsay/bubbles"
+	"github.com/fouralarmfire/grootsay/collector"
+)
 
 type Replica interface {
 	DefaultMessage()
 	Print()
 }
 
-type Bubble interface {
-	CustomMessage(text []string)
-}
-
 type Mainframe struct {
-	bubble    Bubble
-	collector Collector
+	bubble    *bubbles.Bubble
+	collector *collector.TextCollector
 	replica   Replica
 }
 
-func NewMainframe(c Collector, r Replica, b Bubble) *Mainframe {
+func NewMainframe(r Replica) *Mainframe {
 	return &Mainframe{
-		bubble:    b,
-		collector: c,
+		bubble:    bubbles.NewBubble(),
+		collector: collector.NewTextCollector(),
 		replica:   r,
 	}
 }
