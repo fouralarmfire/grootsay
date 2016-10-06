@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
 
 	"golang.org/x/crypto/ssh/terminal"
@@ -29,7 +30,7 @@ func (c *TextCollector) receivedStdin() bool {
 	if (stat.Mode() & os.ModeCharDevice) == 0 {
 		scanner := bufio.NewScanner(os.Stdin)
 		for scanner.Scan() {
-			c.lines = append(c.lines, scanner.Text())
+			c.appendText(scanner.Text())
 		}
 		return true
 	}
@@ -41,8 +42,7 @@ func (c *TextCollector) receivedArgs() bool {
 	args := os.Args[1:]
 	text := strings.Join(args, " ")
 	if len(args) > 0 && len(text) < int(c.screenWidth())-13 {
-		c.lines = append(c.lines, text)
-		return true
+		return c.appendText(text)
 	}
 	return false
 }
@@ -52,6 +52,15 @@ func (c *TextCollector) checkLines() bool {
 		return false
 	}
 	return true
+}
+
+func (c *TextCollector) appendText(text string) bool {
+	re := regexp.MustCompile(`[\S]`)
+	if re.MatchString(text) {
+		c.lines = append(c.lines, text)
+		return true
+	}
+	return false
 }
 
 func (c *TextCollector) screenWidth() int {
