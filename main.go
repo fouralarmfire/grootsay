@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	mainframepkg "github.com/fouralarmfire/xsay/mainframe"
+	"github.com/fouralarmfire/xsay"
 )
 
 func main() {
-	groot := mainframepkg.NewMainframe(grootAscii(), defaultMessage())
+	groot := xsay.New("groot.txt", "I AM GROOT!")
 
 	fmt.Print("\n")
 	groot.Say()
